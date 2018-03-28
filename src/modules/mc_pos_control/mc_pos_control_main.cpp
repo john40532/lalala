@@ -2559,8 +2559,12 @@ MulticopterPositionControl::calculate_thrust_setpoint(float dt)
 		thrust_sp = math::Vector<3>(_pos_sp_triplet.current.a_x, _pos_sp_triplet.current.a_y, _pos_sp_triplet.current.a_z);
 
 	} else {
-		thrust_sp = vel_err.emult(_params.vel_p) + _vel_err_d.emult(_params.vel_d)
-			    + _thrust_int - math::Vector<3>(0.0f, 0.0f, _params.thr_hover);
+		math::Vector<3> hover_thrust = math::Vector<3>(0.0f, 0.0f, _params.thr_hover);
+		for (int i = 0; i < 3; ++i)
+		{
+			thrust_sp(i) = _params.vel_p(i)*(vel_err(i) + _vel_err_d(i)*_params.vel_d(i) + _thrust_int(i) - hover_thrust(i));			
+		}
+		
 	}
 
 	if (!_control_mode.flag_control_velocity_enabled && !_control_mode.flag_control_acceleration_enabled) {

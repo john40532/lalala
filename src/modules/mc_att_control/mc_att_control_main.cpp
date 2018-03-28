@@ -1003,8 +1003,8 @@ MulticopterAttitudeControl::control_attitude_rates(float dt)
 	math::Vector<3> rates_err = _rates_sp - rates;
 
 	_att_control = rates_p_scaled.emult(rates_err) +
-		       _rates_int +
-		       rates_d_scaled.emult(_rates_prev - rates) / dt +
+		       rates_p_scaled.emult(_rates_int) +
+		       rates_p_scaled.emult(rates_d_scaled.emult(_rates_prev - rates)) / dt +
 		       _params.rate_ff.emult(_rates_sp);
 
 	_rates_sp_prev = _rates_sp;

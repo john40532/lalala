@@ -28,6 +28,8 @@
     <arg name="pluginlists_yaml" default="$(find mavros)/launch/px4_pluginlists.yaml" />
     <arg name="config_yaml" default="$(find mavros)/launch/px4_config.yaml" />
 
+    <node name="ros_get_world_time_1" pkg="get_world_time_test" type="ros_get_world_time" output="screen" />
+
     <include file="$(find px4)/launch/posix_sitl.launch">
         <arg name="x" value="$(arg x)"/>
         <arg name="y" value="$(arg y)"/>
