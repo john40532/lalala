@@ -51,3 +51,6 @@
 	path = cmake/configs/uavcan_board_ident
 	url = https://github.com/PX4/uavcan_board_ident.git
 	branch = master
+[submodule "Tools/sitl_gazebo"]
+	path = Tools/sitl_gazebo
+	url = https://github.com/john40532/sitl_gazebo.git
